@@ -1,3 +1,7 @@
+/*
+This file contains all of the code that is used for the resume information.
+*/
+
 var bio = {
 	"name" : "Joseph Hospodka",
 	"role" : "Web Developer",
@@ -12,7 +16,7 @@ var bio = {
 	"skills" : [ "Dedicated","Motivated ","Self Starter ","Dependable"
 	],
 	"bioPic" : "images/picture_of_me.jpg"
-}
+};
 
 var education = {
 	"schools": [
@@ -33,7 +37,7 @@ var education = {
 		"url": "https://www.udacity.com/nanodegree"
 		}
 	]
-}
+};
 
 var work = {
 	"jobs": [
@@ -52,7 +56,7 @@ var work = {
 		"description": "Responsible for delivering fresh hot pizza's to exotic locations."
 	}
 	]
-}
+};
 
 var projects = {
 	"projects": [
@@ -69,9 +73,9 @@ var projects = {
 		"images": [ "images/project_image.jpg" , "images/fry.jpg"]
 	}
 	]
-}
+};
 
-function displayBio(){
+bio.display = function(){
 	var formattedName = HTMLheaderName.replace("%data%", bio.name);
 	var formattedRole = HTMLheaderRole.replace("%data%", bio.role);
 	var formattedBioPic = HTMLbioPic.replace("%data%", bio.bioPic);
@@ -87,7 +91,7 @@ function displayBio(){
 	if (bio.skills.length > 0)
     {
     $("#header").append(HTMLskillsStart);
-    for (skill in bio.skills)
+    for (var skill in bio.skills)
     {
      var formattedSkills = HTMLskills.replace("%data%", bio.skills[skill]);
      $("#skills").append(formattedSkills);
@@ -95,10 +99,8 @@ function displayBio(){
   }
 }
 
-displayBio();
-
-function displayWork(){
-	for (job in work.jobs) {
+work.display = function(){
+	for (var job in work.jobs) {
 		$("#workExperience").append(HTMLworkStart);
 		var formattedEmployer = HTMLworkEmployer.replace("%data%", work.jobs[job].employer);
 		var formattedTitle = HTMLworkTitle.replace("%data%", work.jobs[job].title);
@@ -113,10 +115,8 @@ function displayWork(){
 }
 }
 
-displayWork();
-
 projects.display = function() {
-	for (project in projects.projects) {
+	for (var project in projects.projects) {
 		$("#projects").append(HTMLprojectStart);
 		var formattedTitle = HTMLprojectTitle.replace("%data%", projects.projects[project].title);
 		$(".project-entry:last").append(formattedTitle);
@@ -125,7 +125,7 @@ projects.display = function() {
 		var formattedDescription = HTMLprojectDescription.replace("%data%", projects.projects[project].description);
 		$(".project-entry:last").append(formattedDescription);
 		if (projects.projects[project].images.length > 0) {
-			for (image in projects.projects[project].images) {
+			for (var image in projects.projects[project].images) {
 				var formattedImage = HTMLprojectImage.replace("%data%", projects.projects[project].images[image]);
 				$(".project-entry:last").append(formattedImage);
 			}
@@ -134,10 +134,8 @@ projects.display = function() {
 
 }
 
-projects.display();
-
 education.display = function() {
-	for (school in education.schools) {
+	for (var school in education.schools) {
 		$("#education").append(HTMLschoolStart);
 		var formattedName = HTMLschoolName.replace("%data%", education.schools[school].name);
 		var formattedDegree = HTMLschoolDegree.replace("%data%", education.schools[school].degree);
@@ -151,7 +149,7 @@ education.display = function() {
 		$(".education-entry:last").append(formattedMajor);
 	}
 	$("#education").append(HTMLonlineClasses);
-	for (course in education.onlineCourses) {
+	for (var course in education.onlineCourses) {
 		$("#education").append(HTMLschoolStart);
 		var formattedTitle = HTMLonlineTitle.replace("%data%", education.onlineCourses[course].title);
 		var formattedSchool = HTMLonlineSchool.replace("%data%", education.onlineCourses[course].school);
@@ -163,8 +161,6 @@ education.display = function() {
 		$(".education-entry:last").append(formattedURL);
 	}
 }
-
-education.display();
 
 $(document).click(function(loc) {
  	var x = loc.pageX;
@@ -181,8 +177,6 @@ function locationizer(work_obj) {
 	return locationArray;
 }
 
-console.log(locationizer(work));
-
 function inName(name) {
 	name = $("#name").text();
 	name = name.trim().split(" ");
@@ -196,3 +190,9 @@ function inName(name) {
 $('#main').append(internationalizeButton);
 
 $("#mapDiv").append(googleMap);
+
+bio.display();
+work.display();
+projects.display();
+education.display();
+console.log(locationizer(work));
